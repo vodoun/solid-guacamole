@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison de Valois - Excellence Franco-Italienne</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --couleur-primaire: #d4b996;
+            --couleur-secondaire: #5d4037;
+            --couleur-accent: #c19a6b;
+            --couleur-texte: #333;
+            --couleur-fond: #f9f5f0;
+            --couleur-blanc: #ffffff;
+            --couleur-noir: #1a1a1a;
+            --couleur-or: #c1a06b;
+            --couleur-argent: #c0c0c0;
+            --transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--couleur-texte);
+            background-color: var(--couleur-fond);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        /* Navigation Luxueuse */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--couleur-blanc);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--couleur-accent);
+            margin: 0 3px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 40px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--couleur-blanc);
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--couleur-accent);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--couleur-accent);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .nav-icons a {
+            color: var(--couleur-blanc);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .nav-icons a:hover {
+            color: var(--couleur-accent);
+            transform: translateY(-2px);
+        }
+        
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--couleur-blanc);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Héro Fullscreen avec Carrousel */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .carousel-inner {
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+        
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+        }
+        
+        .carousel-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        
+        .carousel-item.active .carousel-content {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.5s;
+        }
+        
+        .carousel-content h1 {
+            font-size: 5rem;
+            color: var(--couleur-blanc);
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        
+        .carousel-content p {
+            font-size: 1.3rem;
+            color: var(--couleur-blanc);
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--couleur-blanc);
+            padding: 16px 40px;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 0;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            border: 1px solid var(--couleur-blanc);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--couleur-blanc);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            color: var(--couleur-noir);
+        }
+        
+        .btn:hover:before {
+            width: 100%;
+        }
+        
+        .carousel-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .carousel-indicators {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .indicator.active {
+            background: var(--couleur-blanc);
+            transform: scale(1.3);
+        }
+        
+        .carousel-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        
+        .carousel-arrow {
+            color: var(--couleur-blanc);
+            font-size: 2.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(2px);
+        }
+        
+        .carousel-arrow:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Overlay */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+        
+        /* Collection Phare */
+        .featured-collection {
+            padding: 100px 0;
+            background: var(--couleur-blanc);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--couleur-secondaire);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: var(--couleur-accent);
+        }
+        
+        .section-header p {
+            max-width: 700px;
+            margin: 30px auto 0;
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            height: 450px;
+            background: var(--couleur-fond);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+        
+        .product-image {
+            height: 75%;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .product-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--couleur-blanc);
+        }
+        
+        .product-info h3 {
+            font-size: 1.5rem;
+            color: var(--couleur-secondaire);
+            margin-bottom: 10px;
+        }
+        
+        .product-info .price {
+            font-size: 1.3rem;
+            color: var(--couleur-accent);
+            font-weight: 500;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--couleur-accent);
+            color: var(--couleur-blanc);
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        
+        /* Histoire */
+        .history {
+            padding: 100px 0;
+            background: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            position: relative;
+            color: var(--couleur-blanc);
+            text-align: center;
+        }
+        
+        .history-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.85);
+        }
+        
+        .history-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .history-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: var(--couleur-accent);
+        }
+        
+        .history-content p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+        
+        .signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--couleur-accent);
+            margin-top: 40px;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--couleur-noir);
+            color: var(--couleur-blanc);
+            padding: 70px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--couleur-accent);
+        }
+        
+        .footer-col p, .footer-col li {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--couleur-accent);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--couleur-accent);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .carousel-content h1 {
+                font-size: 4rem;
+            }
+            
+            nav ul li {
+                margin-left: 25px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(26, 26, 26, 0.95);
+                flex-direction: column;
+                padding: 20px 0;
+                text-align: center;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            .carousel-content h1 {
+                font-size: 3rem;
+            }
+            
+            .carousel-content p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .carousel-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .carousel-arrow {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Prestigieux -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">VALOIS<span>•</span>PARIS</a>
+            
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="accueil.html">Accueil</a></li>
+                    <li><a href="histoire.html">Notre Histoire</a></li>
+                    <li><a href="collection.html">Collections</a></li>
+                    <li><a href="compétance.html">Savoir-Faire</a></li>
+                    <li><a href="contact.html">Contacter Nous</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="#"><i class="fas fa-shopping-bag"></i></a>
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Héro Fullscreen avec Carrousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+                    <div class="overlay"></div>
+                    <div class="carousel-content">
+                        <h1>L'Art de la Maroquinerie</h1>
+                        <p>Depuis 1925, chaque pièce Valois incarne l'excellence d'un savoir-faire transmis de génération en génération</p>
+                        <a href="#" class="btn">Découvrir la Collection</a>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+                    <div class="overlay"></div>
+                    <div class="carousel-content">
+                        <h1>Créations Sur Mesure</h1>
+                        <p>Personnalisez votre sac avec notre atelier d'exception pour une pièce unique à votre image</p>
+                        <a href="#" class="btn">Commander sur Mesure</a>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1592078615290-abb0f6d16782?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+                    <div class="overlay"></div>
+                    <div class="carousel-content">
+                        <h1>L'Héritage Franco-Italien</h1>
+                        <p>Où l'élégance parisienne rencontre le raffinement milanais dans chaque création</p>
+                        <a href="#" class="btn">Notre Histoire</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contrôles du carrousel -->
+            <div class="carousel-controls">
+                <div class="carousel-indicators">
+                    <div class="indicator active" data-slide="0"></div>
+                    <div class="indicator" data-slide="1"></div>
+                    <div class="indicator" data-slide="2"></div>
+                </div>
+            </div>
+            
+            <!-- Flèches de navigation -->
+            <div class="carousel-arrows">
+                <div class="carousel-arrow prev">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="carousel-arrow next">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Phare -->
+    <section class="featured-collection">
+        <div class="container">
+            <div class="section-header">
+                <h2>Collection Signature</h2>
+                <p>Découvrez nos créations iconiques, réinterprétées chaque saison avec des matières d'exception et des finitions artisanales</p>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Produit 1 -->
+                <div class="product-card">
+                    <div class="badge">Nouveauté</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sac Valentina">
+                    </div>
+                    <div class="product-info">
+                        <h3>Valentina</h3>
+                        <div class="price">€1 890</div>
+                    </div>
+                </div>
+                
+                <!-- Produit 2 -->
+                <div class="product-card">
+                    <div class="badge">Best-seller</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sac Isabella">
+                    </div>
+                    <div class="product-info">
+                        <h3>Isabella</h3>
+                        <div class="price">€2 150</div>
+                    </div>
+                </div>
+                
+                <!-- Produit 3 -->
+                <div class="product-card">
+                    <div class="badge">Édition Limitée</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sac Sophia">
+                    </div>
+                    <div class="product-info">
+                        <h3>Sophia</h3>
+                        <div class="price">€2 450</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Histoire -->
+    <section class="history">
+        <div class="history-overlay"></div>
+        <div class="container history-content">
+            <h2>Un Héritage Familial Depuis 1925</h2>
+            <p>Fondée à Paris par Giovanni Valois et son épouse française Élise, notre maison incarne la fusion parfaite de l'artisanat italien et de l'élégance française. Chaque sac est une œuvre d'art conçue dans notre atelier milanais par des maîtres artisans qui perpétuent des techniques séculaires.</p>
+            <p>De nos jours, la quatrième génération de la famille Valois continue de créer des pièces exceptionnelles en cuir d'exception, sélectionné pour sa qualité et son caractère unique. Chaque création raconte une histoire de passion, de tradition et d'excellence.</p>
+            <span class="signature">Marie Valois, Directrice Artistique</span>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Maison Valois</h3>
+                    <p>Créations d'exception en maroquinerie de luxe depuis 1925. Où l'artisanat italien rencontre l'élégance française.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Personnalisation sur mesure</a></li>
+                        <li><a href="#">Restauration de pièces anciennes</a></li>
+                        <li><a href="#">Conseils d'entretien</a></li>
+                        <li><a href="#">Programme de fidélité</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> contact@maisonvalois.com</p>
+                    <p><i class="fas fa-phone"></i> +33 1 45 62 78 90</p>
+                    <p><i class="fas fa-clock"></i> Lun-Sam : 10h-19h</p>
+                    <p><i class="fas fa-calendar"></i> Prendre rendez-vous</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Maison Valois. Tous droits réservés. | Créations Franco-Italiennes depuis 1925
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu hamburger
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Carrousel
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.indicator');
+        const prevBtn = document.querySelector('.carousel-arrow.prev');
+        const nextBtn = document.querySelector('.carousel-arrow.next');
+        let currentIndex = 0;
+        let autoSlideInterval;
+        
+        function showSlide(index) {
+            // Masquer toutes les slides
+            carouselItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Désactiver tous les indicateurs
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            
+            // Afficher la slide actuelle
+            carouselItems[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentIndex = index;
+        }
+        
+        function nextSlide() {
+            let nextIndex = (currentIndex + 1) % carouselItems.length;
+            showSlide(nextIndex);
+        }
+        
+        function prevSlide() {
+            let prevIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+            showSlide(prevIndex);
+        }
+        
+        // Événements pour les flèches
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Événements pour les indicateurs
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+        
+        // Défilement automatique
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 5000);
+        }
+        
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+        
+        // Démarrer le défilement automatique
+        startAutoSlide();
+        
+        // Arrêter le défilement automatique quand l'utilisateur interagit
+        document.querySelector('.carousel').addEventListener('mouseenter', stopAutoSlide);
+        document.querySelector('.carousel').addEventListener('mouseleave', startAutoSlide);
+        
+        // Animation du header au défilement
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
